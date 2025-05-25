@@ -30,48 +30,6 @@ namespace TeslaBLE
             void (*configure_action)(CarServer_VehicleAction &, void *);
         };
 
-        // Generic method to build and encode vehicle actions
-        template <typename T>
-        int buildVehicleActionMessage(
-            pb_size_t action_type,
-            const T &action_data,
-            std::function<void(CarServer_VehicleAction &, const T &)> configure_action,
-            pb_byte_t *output_buffer,
-            size_t *output_length)
-        {
-            CarServer_Action action = CarServer_Action_init_default;
-            action.which_action_msg = CarServer_Action_vehicleAction_tag;
-
-            CarServer_VehicleAction vehicle_action = CarServer_VehicleAction_init_default;
-            vehicle_action.which_vehicle_action_msg = action_type;
-
-            configure_action(vehicle_action, action_data);
-            action.action_msg.vehicleAction = vehicle_action;
-
-            size_t universal_encode_buffer_size = UniversalMessage_RoutableMessage_size;
-            pb_byte_t universal_encode_buffer[universal_encode_buffer_size];
-
-            int status = buildCarServerActionPayload(&action, universal_encode_buffer, &universal_encode_buffer_size);
-            if (status != 0)
-            {
-                return status;
-            }
-
-            prependLength(universal_encode_buffer, universal_encode_buffer_size, output_buffer, output_length);
-            return 0;
-        }
-
-        // Helper method for simple boolean toggle actions
-        int buildToggleActionMessage(
-            pb_size_t action_type,
-            const bool &isOn,
-            std::function<void(CarServer_VehicleAction &, const bool &)> configure_action,
-            pb_byte_t *output_buffer,
-            size_t *output_length)
-        {
-            return buildVehicleActionMessage(action_type, isOn, configure_action, output_buffer, output_length);
-        }
-
   public:
     Client()
         : private_key_context_(std::make_unique<mbedtls_pk_context>()),
@@ -194,6 +152,7 @@ namespace TeslaBLE
         pb_byte_t *output_buffer,
         size_t *output_length,
         uint32_t key_slot = 0);
+
     int buildVCSECActionMessage(
         const VCSEC_RKEAction_E action,
         pb_byte_t *output_buffer, size_t *output_length);
@@ -207,6 +166,13 @@ namespace TeslaBLE
         pb_byte_t *output_buffer,
         size_t *output_length,
         int which_get);
+
+    int buildCarServerVehicleActionMessage (
+        int32_t parameter,
+        pb_byte_t *output_buffer,
+        size_t *output_length,
+        int which_tag
+        );
 
     int buildChargingAmpsMessage(
         int32_t amps,
