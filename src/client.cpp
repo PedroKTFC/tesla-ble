@@ -951,6 +951,18 @@ namespace TeslaBLE
       vehicle_action_msg.dummy_field = 1;
       vehicle_action.vehicle_action_msg.chargePortDoorClose = vehicle_action_msg;
     }
+    else if (which_tag == CarServer_VehicleAction_vehicleControlFlashLightsAction_tag)
+    {
+      CarServer_VehicleControlFlashLightsAction vehicle_action_msg = CarServer_VehicleControlFlashLightsAction_init_default;
+      vehicle_action_msg.dummy_field = 1;
+      vehicle_action.vehicle_action_msg.vehicleControlFlashLightsAction = vehicle_action_msg;
+    }
+    else if (which_tag == CarServer_VehicleAction_vehicleControlHonkHornAction_tag)
+    {
+      CarServer_VehicleControlHonkHornAction vehicle_action_msg = CarServer_VehicleControlHonkHornAction_init_default;
+      vehicle_action_msg.dummy_field = 1;
+      vehicle_action.vehicle_action_msg.vehicleControlHonkHornAction = vehicle_action_msg;
+    }
     else
     {
       LOG_ERROR ("Invalid which_tag type, car server vehicle action message not built");
