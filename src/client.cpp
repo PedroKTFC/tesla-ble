@@ -1003,6 +1003,27 @@ namespace TeslaBLE
     return 0;
   }
 
+  int Client::buildVCSECClosureMoveRequestMessage (const VCSEC_ClosureMoveRequest request,
+                                                   pb_byte_t *output_buffer,
+                                                   size_t *output_length)
+  {
+    VCSEC_UnsignedMessage unsigned_message = VCSEC_UnsignedMessage_init_default;
+    unsigned_message.which_sub_message = VCSEC_UnsignedMessage_closureMoveRequest_tag;
+    unsigned_message.sub_message.closureMoveRequest = request;
+
+    size_t universal_encode_buffer_size = UniversalMessage_RoutableMessage_size;
+    pb_byte_t universal_encode_buffer[universal_encode_buffer_size];
+    int status = this->buildUnsignedMessagePayload(&unsigned_message, universal_encode_buffer, &universal_encode_buffer_size, true);
+    if (status != 0)
+    {
+      LOG_ERROR("Failed to build unsigned message");
+      return status;
+    }
+    this->prependLength(universal_encode_buffer, universal_encode_buffer_size,
+                        output_buffer, output_length);
+    return 0;
+  }
+
   int Client::buildVCSECInformationRequestMessage(VCSEC_InformationRequestType request_type,
                                                   pb_byte_t *output_buffer,
                                                   size_t *output_length,
