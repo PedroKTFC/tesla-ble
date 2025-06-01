@@ -963,6 +963,21 @@ namespace TeslaBLE
       vehicle_action_msg.dummy_field = 1;
       vehicle_action.vehicle_action_msg.vehicleControlHonkHornAction = vehicle_action_msg;
     }
+    else if (which_tag == CarServer_VehicleAction_vehicleControlWindowAction_tag)
+    {
+      CarServer_VehicleControlWindowAction vehicle_action_msg = CarServer_VehicleControlWindowAction_init_default;
+      if (set_value == 1)
+      {
+        vehicle_action_msg.which_action = CarServer_VehicleControlWindowAction_vent_tag;
+        vehicle_action_msg.action.vent = CarServer_Void_init_default;
+      }
+      else
+      {
+        vehicle_action_msg.which_action = CarServer_VehicleControlWindowAction_close_tag;
+        vehicle_action_msg.action.close = CarServer_Void_init_default;
+      }
+      vehicle_action.vehicle_action_msg.vehicleControlWindowAction = vehicle_action_msg;
+    }
     else
     {
       LOG_ERROR ("Invalid which_tag type, car server vehicle action message not built");
