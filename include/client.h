@@ -157,6 +157,11 @@ namespace TeslaBLE
         const VCSEC_RKEAction_E action,
         pb_byte_t *output_buffer, size_t *output_length);
 
+    int buildVCSECClosureMoveRequestMessage (
+        const VCSEC_ClosureMoveRequest request,
+        pb_byte_t *output_buffer,
+        size_t *output_length);
+
     int buildCarServerActionMessage(
         const CarServer_VehicleAction *vehicle_action,
         pb_byte_t *output_buffer,
