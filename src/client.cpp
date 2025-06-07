@@ -927,18 +927,6 @@ namespace TeslaBLE
       vehicle_action_msg.power_on = (set_value != 0);
       vehicle_action.vehicle_action_msg.hvacSteeringWheelHeaterAction = vehicle_action_msg;
     }
-    else if (which_tag == CarServer_VehicleAction_hvacSteeringWheelHeaterAction_tag)
-    {
-      CarServer_HvacSteeringWheelHeaterAction vehicle_action_msg = CarServer_HvacSteeringWheelHeaterAction_init_default;
-      vehicle_action_msg.power_on = (set_value != 0);
-      vehicle_action.vehicle_action_msg.hvacSteeringWheelHeaterAction = vehicle_action_msg;
-    }
-    else if (which_tag == CarServer_VehicleAction_hvacSteeringWheelHeaterAction_tag)
-    {
-      CarServer_HvacSteeringWheelHeaterAction vehicle_action_msg = CarServer_HvacSteeringWheelHeaterAction_init_default;
-      vehicle_action_msg.power_on = (set_value != 0);
-      vehicle_action.vehicle_action_msg.hvacSteeringWheelHeaterAction = vehicle_action_msg;
-    }
     else if (which_tag == CarServer_VehicleAction_chargePortDoorOpen_tag)
     {
       CarServer_ChargePortDoorOpen vehicle_action_msg = CarServer_ChargePortDoorOpen_init_default;
@@ -977,6 +965,12 @@ namespace TeslaBLE
         vehicle_action_msg.action.close = CarServer_Void_init_default;
       }
       vehicle_action.vehicle_action_msg.vehicleControlWindowAction = vehicle_action_msg;
+    }
+    else if (which_tag == CarServer_VehicleAction_hvacSetPreconditioningMaxAction_tag)
+    {
+      CarServer_HvacSetPreconditioningMaxAction vehicle_action_msg = CarServer_HvacSetPreconditioningMaxAction_init_default;
+      vehicle_action_msg.on = (set_value != 0);
+      vehicle_action.vehicle_action_msg.hvacSetPreconditioningMaxAction = vehicle_action_msg;
     }
     else
     {
