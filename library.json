@@ -19,7 +19,7 @@
   "homepage": "https://github.com/yoziru/tesla-ble/wiki",
   "frameworks": "*",
   "platforms": [
-    "espidf"
+    "espressif32"
   ],
   "dependencies": {
     "nanopb/Nanopb": "^0.4.91"
