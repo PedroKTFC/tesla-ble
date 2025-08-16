@@ -7,7 +7,7 @@
 #include "vehicle.pb.h"
 #include "signatures.pb.h"
 #include "common.pb.h"
-#include "google/protobuf/timestamp.pb.h" // This is not included in the previous version so delete if build fails (trying with it in to minimise "hand" changes")
+//#include "google/protobuf/timestamp.pb.h" // This line is automatically added by nanopb but causes a compilation error & isn't needed. Always comment out like this.
 
 #if PB_PROTO_HEADER_VERSION != 40
 #error Regenerate this file with the current version of nanopb generator.
