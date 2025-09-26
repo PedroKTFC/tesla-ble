@@ -900,12 +900,12 @@ namespace TeslaBLE
       if (set_value == 1)
       {
         vehicle_action_msg.which_charging_action = CarServer_ChargingStartStopAction_start_tag;
-        vehicle_action_msg.charging_action.stop = CarServer_Void_init_default;
+        vehicle_action_msg.charging_action.start = CarServer_Void_init_default;
       }
       else
       {
         vehicle_action_msg.which_charging_action = CarServer_ChargingStartStopAction_stop_tag;
-        vehicle_action_msg.charging_action.start = CarServer_Void_init_default;
+        vehicle_action_msg.charging_action.stop = CarServer_Void_init_default;
       }
       vehicle_action.vehicle_action_msg.chargingStartStopAction = vehicle_action_msg;
     }
