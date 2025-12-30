@@ -231,6 +231,9 @@ PB_BIND(CarServer_VehicleControlResetPinToDriveAction, CarServer_VehicleControlR
 PB_BIND(CarServer_VehicleControlResetPinToDriveAdminAction, CarServer_VehicleControlResetPinToDriveAdminAction, AUTO)
 
 
+PB_BIND(CarServer_SetLowPowerModeAction, CarServer_SetLowPowerModeAction, AUTO)
+
+
 
 
 
@@ -251,3 +254,4 @@ PB_BIND(CarServer_VehicleControlResetPinToDriveAdminAction, CarServer_VehicleCon
  */
 PB_STATIC_ASSERT(sizeof(double) == 8, DOUBLE_MUST_BE_8_BYTES)
 #endif
+
