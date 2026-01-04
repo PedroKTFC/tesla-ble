@@ -849,6 +849,10 @@ namespace TeslaBLE
         get_vehicle_data.getClosuresState = CarServer_GetClosuresState_init_default;
         get_vehicle_data.has_getClosuresState = true;
         break;
+      case CarServer_GetVehicleData_getTirePressureState_tag:
+        get_vehicle_data.getTirePressureState = CarServer_GetTirePressureState_init_default;
+        get_vehicle_data.has_getTirePressureState = true;
+        break;
       default:
         LOG_ERROR ("Invalid which_get type, action message not built");
         return 1;
