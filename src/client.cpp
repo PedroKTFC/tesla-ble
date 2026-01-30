@@ -24,7 +24,6 @@
 #include <pb_encode.h>
 #include <sstream>
 
-#include "helpers.h"
 #include "car_server.pb.h"
 #include "client.h"
 #include "keys.pb.h"
