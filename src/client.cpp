@@ -361,7 +361,7 @@ namespace TeslaBLE
                                     size_t input_buffer_length,
                                     UniversalMessage_RoutableMessage *output)
   {
-    LOG_ERROR ("[parseUniversalMessage] Entering at version 2026.1.B-repair");
+    LOG_ERROR ("[parseUniversalMessage] Entering at version 2026.2.0");
     pb_istream_t stream = pb_istream_from_buffer(input_buffer, input_buffer_length);
     bool status = pb_decode(&stream, UniversalMessage_RoutableMessage_fields, output);
     if (!status)
