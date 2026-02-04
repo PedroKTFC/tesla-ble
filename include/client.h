@@ -78,7 +78,7 @@ namespace TeslaBLE
 
     int getPublicKey(
         pb_byte_t *output_buffer,
-        size_t *output_buffer_length);
+        size_t output_buffer_length);
 
     int buildWhiteListMessage(
         Keys_Role role,
@@ -240,6 +240,10 @@ namespace TeslaBLE
 
         pb_byte_t last_request_hash_[17]; // 1 byte type + 16 bytes tag
     size_t last_request_hash_length_;
+
+    static void insertLength (size_t input_buffer_length,
+                             pb_byte_t *output_buffer,
+                             size_t *output_length);
 
     static void prependLength(
         const pb_byte_t *input_buffer,
