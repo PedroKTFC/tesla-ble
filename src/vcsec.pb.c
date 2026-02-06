@@ -6,10 +6,10 @@
 #error Regenerate this file with the current version of nanopb generator.
 #endif
 
-PB_BIND(VCSEC_SignedMessage, VCSEC_SignedMessage, 2)
+PB_BIND(VCSEC_SignedMessage, VCSEC_SignedMessage, AUTO)
 
 
-PB_BIND(VCSEC_ToVCSECMessage, VCSEC_ToVCSECMessage, 2)
+PB_BIND(VCSEC_ToVCSECMessage, VCSEC_ToVCSECMessage, AUTO)
 
 
 PB_BIND(VCSEC_KeyIdentifier, VCSEC_KeyIdentifier, AUTO)
@@ -64,3 +64,30 @@ PB_BIND(VCSEC_VehicleStatus, VCSEC_VehicleStatus, AUTO)
 
 
 PB_BIND(VCSEC_FromVCSECMessage, VCSEC_FromVCSECMessage, AUTO)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
