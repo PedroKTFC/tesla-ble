@@ -269,17 +269,18 @@ namespace TeslaBLE
     VCSEC_UnsignedMessage payload = VCSEC_UnsignedMessage_init_default;
     payload.which_sub_message     = VCSEC_UnsignedMessage_WhitelistOperation_tag;
 
+    // Initialize WhitelistOperation before setting nested fields, otherwise
+    // the init_default assignment overwrites the PermissionChange data.
+    payload.sub_message.WhitelistOperation                              = VCSEC_WhitelistOperation_init_default;
+    payload.sub_message.WhitelistOperation.has_metadataForKey           = true;
+    payload.sub_message.WhitelistOperation.metadataForKey.keyFormFactor = form_factor;
+    payload.sub_message.WhitelistOperation.which_sub_message            = VCSEC_WhitelistOperation_addKeyToWhitelistAndAddPermissions_tag;
+
     payload.sub_message.WhitelistOperation.sub_message.addKeyToWhitelistAndAddPermissions                       = VCSEC_PermissionChange_init_default;
     payload.sub_message.WhitelistOperation.sub_message.addKeyToWhitelistAndAddPermissions.has_key               = true;
     memcpy(payload.sub_message.WhitelistOperation.sub_message.addKeyToWhitelistAndAddPermissions.key.PublicKeyRaw.bytes, this->public_key_, this->public_key_size_);
     payload.sub_message.WhitelistOperation.sub_message.addKeyToWhitelistAndAddPermissions.key.PublicKeyRaw.size = this->public_key_size_;
     payload.sub_message.WhitelistOperation.sub_message.addKeyToWhitelistAndAddPermissions.keyRole               = role;
-    // permissions_action.secondsToBeActive = 0;
-
-    payload.sub_message.WhitelistOperation                              = VCSEC_WhitelistOperation_init_default;
-    payload.sub_message.WhitelistOperation.has_metadataForKey           = true;
-    payload.sub_message.WhitelistOperation.metadataForKey.keyFormFactor = form_factor;
-    payload.sub_message.WhitelistOperation.which_sub_message            = VCSEC_WhitelistOperation_addKeyToWhitelistAndAddPermissions_tag;
 
     // printf("Encoding whitelist message\n");
     pb_byte_t payload_buffer[VCSEC_UnsignedMessage_size];
