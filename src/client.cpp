@@ -24,6 +24,7 @@
 #include <pb_encode.h>
 #include <sstream>
 
+//#include "helpers.h"
 #include "car_server.pb.h"
 #include "client.h"
 #include "keys.pb.h"
@@ -362,7 +363,7 @@ namespace TeslaBLE
                                     size_t input_buffer_length,
                                     UniversalMessage_RoutableMessage *output)
   {
-    LOG_ERROR ("[parseUniversalMessage] Entering at version 2026.2.0");
+    LOG_ERROR ("[parseUniversalMessage] Entering at version 2026.2.1");
     pb_istream_t stream = pb_istream_from_buffer(input_buffer, input_buffer_length);
     bool status = pb_decode(&stream, UniversalMessage_RoutableMessage_fields, output);
     if (!status)
@@ -1041,7 +1042,7 @@ namespace TeslaBLE
                                       size_t *output_length)
   {
     VCSEC_UnsignedMessage unsigned_message = VCSEC_UnsignedMessage_init_default;
-    unsigned_message.which_sub_message = VCSEC_UnsignedMessage_RKEAction_tag;
+    unsigned_message.which_sub_message     = VCSEC_UnsignedMessage_RKEAction_tag;
     unsigned_message.sub_message.RKEAction = action;
 
     size_t universal_encode_buffer_size = UniversalMessage_RoutableMessage_size;
@@ -1100,14 +1101,14 @@ namespace TeslaBLE
 
     size_t universal_encode_buffer_size = UniversalMessage_RoutableMessage_size;
 //    pb_byte_t universal_encode_buffer[universal_encode_buffer_size];
-    int status = this->buildUnsignedMessagePayload(&unsigned_message, output_buffer+(&output_buffer[2]-&output_buffer[0]), &universal_encode_buffer_size, false);
+    int status = this->buildUnsignedMessagePayload (&unsigned_message, output_buffer+(&output_buffer[2]-&output_buffer[0]), &universal_encode_buffer_size, false);
 //    int status = this->buildUnsignedMessagePayload(&unsigned_message, universal_encode_buffer, &universal_encode_buffer_size, false);
     if (status != 0)
     {
       LOG_ERROR("Failed to build unsigned message");
       return status;
     }
-    this->insertLength(universal_encode_buffer_size, output_buffer, output_length);
+    this->insertLength (universal_encode_buffer_size, output_buffer, output_length);
 //    this->prependLength(universal_encode_buffer, universal_encode_buffer_size,
 //                        output_buffer, output_length);
     return 0;
