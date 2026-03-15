@@ -78,7 +78,7 @@ namespace TeslaBLE
 
     int getPublicKey(
         pb_byte_t *output_buffer,
-        size_t *output_buffer_length);
+        size_t output_buffer_length);
 
     int buildWhiteListMessage(
         Keys_Role role,
@@ -87,7 +87,7 @@ namespace TeslaBLE
         size_t *output_length);
 
     static int parseFromVCSECMessage(
-        UniversalMessage_RoutableMessage_protobuf_message_as_bytes_t *input_buffer,
+        const UniversalMessage_RoutableMessage_protobuf_message_as_bytes_t *input_buffer,
         VCSEC_FromVCSECMessage *output);
 
     static int parseUniversalMessage(
@@ -101,11 +101,11 @@ namespace TeslaBLE
         UniversalMessage_RoutableMessage *output);
 
     static int parseVCSECInformationRequest(
-        UniversalMessage_RoutableMessage_protobuf_message_as_bytes_t *input_buffer,
+        const UniversalMessage_RoutableMessage_protobuf_message_as_bytes_t *input_buffer,
         VCSEC_InformationRequest *output);
 
     static int parsePayloadSessionInfo(
-        UniversalMessage_RoutableMessage_session_info_t *input_buffer,
+        const UniversalMessage_RoutableMessage_session_info_t *input_buffer,
         Signatures_SessionInfo *output);
 
     static int parsePayloadUnsignedMessage(
@@ -113,7 +113,7 @@ namespace TeslaBLE
         VCSEC_UnsignedMessage *output);
 
     int parsePayloadCarServerResponse(
-        UniversalMessage_RoutableMessage_protobuf_message_as_bytes_t *input_buffer,
+        const UniversalMessage_RoutableMessage_protobuf_message_as_bytes_t *input_buffer,
         Signatures_SignatureData *signature_data,
         pb_size_t which_sub_sigData,       
         UniversalMessage_MessageFault_E signed_message_fault,
@@ -158,7 +158,7 @@ namespace TeslaBLE
         pb_byte_t *output_buffer, size_t *output_length);
 
     int buildVCSECClosureMoveRequestMessage (
-        const VCSEC_ClosureMoveRequest request,
+        const VCSEC_ClosureMoveRequest& request,
         pb_byte_t *output_buffer,
         size_t *output_length);
 
@@ -241,11 +241,9 @@ namespace TeslaBLE
         pb_byte_t last_request_hash_[17]; // 1 byte type + 16 bytes tag
     size_t last_request_hash_length_;
 
-    static void prependLength(
-        const pb_byte_t *input_buffer,
-        size_t input_buffer_length,
-        pb_byte_t *output_buffer,
-        size_t *output_buffer_length);
+    static void insertLength (size_t input_buffer_length,
+                             pb_byte_t *output_buffer,
+                             size_t *output_length);
 
     int generatePublicKey();
 
