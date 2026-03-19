@@ -62,6 +62,7 @@ message VehicleAction {
         SetVehicleNameAction setVehicleNameAction = 54;
         ChargePortDoorClose chargePortDoorClose = 61;
         ChargePortDoorOpen chargePortDoorOpen = 62;
+        BoomboxAction boomboxAction = 64;
         VehicleState.GuestMode guestModeAction = 65;
         SetCopTempAction setCopTempAction = 66;
         EraseUserDataAction eraseUserDataAction = 72;
