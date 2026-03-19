@@ -491,6 +491,9 @@ message ChargePortDoorClose {
 message ChargePortDoorOpen {
 }
 
+message BoomboxAction {
+}
+
 message SetCopTempAction {
     ClimateState.CopActivationTemp copActivationTemp = 1;
 }
