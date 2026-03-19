@@ -997,6 +997,12 @@ namespace TeslaBLE
       action.action_msg.vehicleAction.vehicle_action_msg.vehicleControlHonkHornAction             = CarServer_VehicleControlHonkHornAction_init_default;
       action.action_msg.vehicleAction.vehicle_action_msg.vehicleControlHonkHornAction.dummy_field = 1;
     }
+    else if (which_tag == CarServer_VehicleAction_boomboxAction_tag)
+  {
+     action.action_msg.vehicleAction.vehicle_action_msg.boomboxAction             = CarServer_BoomboxAction_init_default;
+     action.action_msg.vehicleAction.vehicle_action_msg.boomboxAction.dummy_field = 1;
+   }
+      
     else if (which_tag == CarServer_VehicleAction_vehicleControlWindowAction_tag)
     {
       action.action_msg.vehicleAction.vehicle_action_msg.vehicleControlWindowAction = CarServer_VehicleControlWindowAction_init_default;
