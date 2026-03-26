@@ -338,7 +338,7 @@ namespace TeslaBLE
                                     size_t input_buffer_length,
                                     UniversalMessage_RoutableMessage *output)
   {
-    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.3.0-alpha-4 %s", TAG);
+    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.3.0 %s", TAG);
     memset(output, 0, sizeof(*output));   // clear structure
     pb_istream_t stream = pb_istream_from_buffer(input_buffer, input_buffer_length);
     if (!pb_decode(&stream, UniversalMessage_RoutableMessage_fields, output))
