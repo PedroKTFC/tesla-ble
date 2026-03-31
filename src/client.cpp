@@ -326,7 +326,7 @@ namespace TeslaBLE
                                     size_t input_buffer_length,
                                     UniversalMessage_RoutableMessage *output)
   {
-    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.4.0-dev %s", TAG);
+    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.4.0-dev-1 %s", TAG);
     return decodeProtoBuffer (input_buffer, input_buffer_length, UniversalMessage_RoutableMessage_fields, output, "parseUniversalMessage");
   }
 
@@ -847,6 +847,11 @@ namespace TeslaBLE
       case CarServer_VehicleAction_hvacSetPreconditioningMaxAction_tag:
         action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacSetPreconditioningMaxAction    = CarServer_HvacSetPreconditioningMaxAction_init_default;
         action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacSetPreconditioningMaxAction.on = (set_value != 0);
+        break;
+      case CarServer_VehicleAction_hvacTemperatureAdjustmentAction_tag:
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacTemperatureAdjustmentAction                       = CarServer_HvacTemperatureAdjustmentAction_init_default;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacTemperatureAdjustmentAction.driver_temp_celsius   = set_value;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacTemperatureAdjustmentAction.passenger_temp_celsius = set_value;
         break;
       default:
         LOG_ERROR ("Invalid which_tag type %i, car server vehicle action message not built", which_tag);
