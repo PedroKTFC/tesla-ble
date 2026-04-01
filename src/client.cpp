@@ -326,7 +326,7 @@ namespace TeslaBLE
                                     size_t input_buffer_length,
                                     UniversalMessage_RoutableMessage *output)
   {
-    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.4.0-dev-1 %s", TAG);
+    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.4.0-dev-2 %s", TAG);
     return decodeProtoBuffer (input_buffer, input_buffer_length, UniversalMessage_RoutableMessage_fields, output, "parseUniversalMessage");
   }
 
@@ -852,6 +852,18 @@ namespace TeslaBLE
         action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacTemperatureAdjustmentAction                       = CarServer_HvacTemperatureAdjustmentAction_init_default;
         action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacTemperatureAdjustmentAction.driver_temp_celsius   = set_value;
         action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacTemperatureAdjustmentAction.passenger_temp_celsius = set_value;
+        break;
+      case CarServer_VehicleAction_mediaPlayAction_tag:
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPlayAction             = CarServer_MediaPlayAction_init_default;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPlayAction.dummy_field = 1;
+        break;
+      case CarServer_VehicleAction_mediaNextTrack_tag:
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaNextTrack             = CarServer_MediaNextTrack_init_default;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaNextTrack.dummy_field = 1;
+        break;
+      case CarServer_VehicleAction_mediaPreviousTrack_tag:
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPreviousTrack             = CarServer_MediaPreviousTrack_init_default;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPreviousTrack.dummy_field = 1;
         break;
       default:
         LOG_ERROR ("Invalid which_tag type %i, car server vehicle action message not built", which_tag);
