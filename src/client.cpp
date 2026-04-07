@@ -545,7 +545,9 @@ namespace TeslaBLE
       memcpy(universal_message_.payload.protobuf_message_as_bytes.bytes, payload, payload_length);
       universal_message_.payload.protobuf_message_as_bytes.size = payload_length;
     }
-    int rc = mbedtls_ctr_drbg_random(drbg_context_.get(), universal_message_.uuid.bytes, sizeof (universal_message_.uuid.bytes)); //16);
+    universal_message_.uuid.size = sizeof (universal_message_.uuid.bytes);
+LOG_INFO ("[buildUniversalMessageWithPayload] universal_message_.uuid.size %i", universal_message_.uuid.size);
+    int rc = mbedtls_ctr_drbg_random(drbg_context_.get(), universal_message_.uuid.bytes, universal_message_.uuid.size); //16);
     if (rc != 0)
     {
         LOG_ERROR("[buildUniversalMessageWithPayload] UUID generation failed");
@@ -591,7 +593,9 @@ namespace TeslaBLE
     universal_message_.payload.session_info_request.public_key.size = this->public_key_size_;
 
     // generate unique uuid for the request
-    int rc = mbedtls_ctr_drbg_random(drbg_context_.get(), universal_message_.uuid.bytes, sizeof (universal_message_.uuid.bytes)); //16);
+    universal_message_.uuid.size = sizeof (universal_message_.uuid.bytes);
+LOG_INFO ("[buildSessionInfoRequestMessage] universal_message_.uuid.size %i", universal_message_.uuid.size);
+    int rc = mbedtls_ctr_drbg_random(drbg_context_.get(), universal_message_.uuid.bytes, universal_message_.uuid.size); //16);
     if (rc != 0)
     {
         LOG_ERROR("[buildSessionInfoRequest] UUID generation failed");
