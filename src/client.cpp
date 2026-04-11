@@ -326,7 +326,7 @@ namespace TeslaBLE
                                     size_t input_buffer_length,
                                     UniversalMessage_RoutableMessage *output)
   {
-    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.4.0-dev-2 %s", TAG);
+    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.4.0-dev-3 %s", TAG);
     return decodeProtoBuffer (input_buffer, input_buffer_length, UniversalMessage_RoutableMessage_fields, output, "parseUniversalMessage");
   }
 
@@ -545,15 +545,12 @@ namespace TeslaBLE
       memcpy(universal_message_.payload.protobuf_message_as_bytes.bytes, payload, payload_length);
       universal_message_.payload.protobuf_message_as_bytes.size = payload_length;
     }
-    universal_message_.uuid.size = sizeof (universal_message_.uuid.bytes);
-LOG_INFO ("[buildUniversalMessageWithPayload] universal_message_.uuid.size %i", universal_message_.uuid.size);
-    int rc = mbedtls_ctr_drbg_random(drbg_context_.get(), universal_message_.uuid.bytes, universal_message_.uuid.size); //16);
-    if (rc != 0)
+    for (int i = 0; i < sizeof(universal_message_.uuid.bytes); i++)
     {
-        LOG_ERROR("[buildUniversalMessageWithPayload] UUID generation failed");
-        return TeslaBLE_Status_E_ERROR_INTERNAL;
+      universal_message_.uuid.bytes[i] = rand() % 256;
     }
-    rc = pb_encode_fields(output_buffer, output_length, UniversalMessage_RoutableMessage_fields, &universal_message_);
+    universal_message_.uuid.size = sizeof (universal_message_.uuid.bytes);
+    int rc = pb_encode_fields(output_buffer, output_length, UniversalMessage_RoutableMessage_fields, &universal_message_);
     if (rc != 0)
     {
       LOG_ERROR("[buildUniversalMessageWithPayload] Failed to encode universal message");
@@ -593,16 +590,14 @@ LOG_INFO ("[buildUniversalMessageWithPayload] universal_message_.uuid.size %i", 
     universal_message_.payload.session_info_request.public_key.size = this->public_key_size_;
 
     // generate unique uuid for the request
-    universal_message_.uuid.size = sizeof (universal_message_.uuid.bytes);
-LOG_INFO ("[buildSessionInfoRequestMessage] universal_message_.uuid.size %i", universal_message_.uuid.size);
-    int rc = mbedtls_ctr_drbg_random(drbg_context_.get(), universal_message_.uuid.bytes, universal_message_.uuid.size); //16);
-    if (rc != 0)
+    // random 16 bytes using rand()
+    for (int i = 0; i < sizeof(universal_message_.uuid.bytes); i++)
     {
-        LOG_ERROR("[buildSessionInfoRequest] UUID generation failed");
-        return TeslaBLE_Status_E_ERROR_INTERNAL;
+      universal_message_.uuid.bytes[i] = rand() % 256;
     }
+    universal_message_.uuid.size = sizeof (universal_message_.uuid.bytes);
     size_t universal_encode_buffer_size = UniversalMessage_RoutableMessage_size;
-    rc = pb_encode_fields(output_buffer + 2, &universal_encode_buffer_size, UniversalMessage_RoutableMessage_fields, &universal_message_);
+    int rc = pb_encode_fields(output_buffer + 2, &universal_encode_buffer_size, UniversalMessage_RoutableMessage_fields, &universal_message_);
     if (rc != 0)
     {
       LOG_ERROR("[buildSessionInfoRequest] Failed to encode universal message");
