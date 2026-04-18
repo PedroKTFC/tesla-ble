@@ -140,7 +140,7 @@ namespace TeslaBLE
         size_t *output_length);
 
     int buildUniversalMessageWithPayload(
-        pb_byte_t *payload,
+        const pb_byte_t *payload,
         size_t payload_length,
         UniversalMessage_Domain domain,
         pb_byte_t *output_buffer,
@@ -228,6 +228,9 @@ namespace TeslaBLE
     std::shared_ptr<mbedtls_ctr_drbg_context> drbg_context_;
     std::unique_ptr<Peer> session_vcsec_;
     std::unique_ptr<Peer> session_infotainment_;
+    UniversalMessage_RoutableMessage universal_message_;
+    VCSEC_UnsignedMessage unsigned_message_;
+    CarServer_Action action_message_;
 
     unsigned char public_key_id_[4];
     unsigned char public_key_[MBEDTLS_ECP_MAX_BYTES];

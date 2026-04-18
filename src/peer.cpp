@@ -464,7 +464,7 @@ namespace TeslaBLE
     return true;
   }
 
-  int Peer::Encrypt(pb_byte_t *input_buffer, size_t input_buffer_length,
+  int Peer::Encrypt(const pb_byte_t *input_buffer, size_t input_buffer_length,
                     pb_byte_t *output_buffer, size_t output_buffer_length,
                     size_t *output_length, pb_byte_t *signature_buffer,
                     pb_byte_t *ad_buffer, size_t ad_buffer_length, pb_byte_t nonce[12]) const
