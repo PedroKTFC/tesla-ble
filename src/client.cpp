@@ -864,6 +864,14 @@ namespace TeslaBLE
         action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPreviousTrack             = CarServer_MediaPreviousTrack_init_default;
         action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPreviousTrack.dummy_field = 1;
         break;
+       case CarServer_VehicleAction_setLowPowerModeAction_tag:
+         action_message_.action_msg.vehicleAction.vehicle_action_msg.setLowPowerModeAction                = CarServer_SetKeepAccessoryPowerModeAction_init_default;
+         action_message_.action_msg.vehicleAction.vehicle_action_msg.setLowPowerModeAction.low_power_mode = (set_value != 0);
+         break;
+       case CarServer_VehicleAction_setKeepAccessoryPowerModeAction_tag:
+         action_message_.action_msg.vehicleAction.vehicle_action_msg.setKeepAccessoryPowerModeAction                           = CarServer_SetKeepAccessoryPowerModeAction_init_default;
+         action_message_.action_msg.vehicleAction.vehicle_action_msg.setKeepAccessoryPowerModeAction.keep_accessory_power_mode = (set_value != 0);
+         break;
       default:
         LOG_ERROR ("Invalid which_tag type %i, car server vehicle action message not built", which_tag);
         return TeslaBLE_Status_E_ERROR_INTERNAL;
