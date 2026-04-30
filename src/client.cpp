@@ -865,7 +865,7 @@ namespace TeslaBLE
         action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPreviousTrack.dummy_field = 1;
         break;
       case CarServer_VehicleAction_setLowPowerModeAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.setLowPowerModeAction                = CarServer_SetKeepAccessoryPowerModeAction_init_default;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.setLowPowerModeAction                = CarServer_SetLowPowerModeAction_init_default;
         action_message_.action_msg.vehicleAction.vehicle_action_msg.setLowPowerModeAction.low_power_mode = (set_value != 0);
         break;
       case CarServer_VehicleAction_setKeepAccessoryPowerModeAction_tag:
