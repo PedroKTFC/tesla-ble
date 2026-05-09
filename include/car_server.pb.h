@@ -498,6 +498,10 @@ typedef struct _CarServer_SetLowPowerModeAction {
     bool low_power_mode;
 } CarServer_SetLowPowerModeAction;
 
+typedef struct _CarServer_SetKeepAccessoryPowerModeAction {
+    bool keep_accessory_power_mode;
+} CarServer_SetKeepAccessoryPowerModeAction;
+
 typedef struct _CarServer_VehicleAction {
     pb_size_t which_vehicle_action_msg;
     union {
@@ -555,6 +559,7 @@ typedef struct _CarServer_VehicleAction {
         CarServer_BatchRemovePreconditionSchedulesAction batchRemovePreconditionSchedulesAction;
         CarServer_BatchRemoveChargeSchedulesAction batchRemoveChargeSchedulesAction;
         CarServer_SetLowPowerModeAction setLowPowerModeAction;
+        CarServer_SetKeepAccessoryPowerModeAction setKeepAccessoryPowerModeAction;
     } vehicle_action_msg;
 } CarServer_VehicleAction;
 
@@ -679,6 +684,7 @@ extern "C" {
 
 
 
+
 /* Initializer values for message structs */
 #define CarServer_Action_init_default            {0, {CarServer_VehicleAction_init_default}}
 #define CarServer_VehicleAction_init_default     {0, {CarServer_GetVehicleData_init_default}}
@@ -756,6 +762,7 @@ extern "C" {
 #define CarServer_VehicleControlResetPinToDriveAction_init_default {0}
 #define CarServer_VehicleControlResetPinToDriveAdminAction_init_default {0}
 #define CarServer_SetLowPowerModeAction_init_default {0}
+#define CarServer_SetKeepAccessoryPowerModeAction_init_default {0}
 #define CarServer_Action_init_zero               {0, {CarServer_VehicleAction_init_zero}}
 #define CarServer_VehicleAction_init_zero        {0, {CarServer_GetVehicleData_init_zero}}
 #define CarServer_GetVehicleData_init_zero       {false, CarServer_GetChargeState_init_zero, false, CarServer_GetClimateState_init_zero, false, CarServer_GetDriveState_init_zero, false, CarServer_GetLocationState_init_zero, false, CarServer_GetClosuresState_init_zero, false, CarServer_GetChargeScheduleState_init_zero, false, CarServer_GetPreconditioningScheduleState_init_zero, false, CarServer_GetTirePressureState_init_zero, false, CarServer_GetMediaState_init_zero, false, CarServer_GetMediaDetailState_init_zero, false, CarServer_GetSoftwareUpdateState_init_zero, false, CarServer_GetParentalControlsState_init_zero}
@@ -832,6 +839,7 @@ extern "C" {
 #define CarServer_VehicleControlResetPinToDriveAction_init_zero {0}
 #define CarServer_VehicleControlResetPinToDriveAdminAction_init_zero {0}
 #define CarServer_SetLowPowerModeAction_init_zero {0}
+#define CarServer_SetKeepAccessoryPowerModeAction_init_zero {0}
 
 /* Field tags (for use in manual encoding/decoding) */
 #define CarServer_GetVehicleData_getChargeState_tag 2
@@ -979,6 +987,7 @@ extern "C" {
 #define CarServer_VehicleControlSetPinToDriveAction_on_tag 1
 #define CarServer_VehicleControlSetPinToDriveAction_password_tag 2
 #define CarServer_SetLowPowerModeAction_low_power_mode_tag 1
+#define CarServer_SetKeepAccessoryPowerModeAction_keep_accessory_power_mode_tag 1
 #define CarServer_VehicleAction_getVehicleData_tag 1
 #define CarServer_VehicleAction_chargingSetLimitAction_tag 5
 #define CarServer_VehicleAction_chargingStartStopAction_tag 6
@@ -1033,6 +1042,7 @@ extern "C" {
 #define CarServer_VehicleAction_batchRemovePreconditionSchedulesAction_tag 107
 #define CarServer_VehicleAction_batchRemoveChargeSchedulesAction_tag 108
 #define CarServer_VehicleAction_setLowPowerModeAction_tag 130
+#define CarServer_VehicleAction_setKeepAccessoryPowerModeAction_tag 138
 #define CarServer_Action_vehicleAction_tag       2
 
 /* Struct field encoding specification for nanopb */
@@ -1096,7 +1106,8 @@ X(a, STATIC,   ONEOF,    MESSAGE,  (vehicle_action_msg,addPreconditionScheduleAc
 X(a, STATIC,   ONEOF,    MESSAGE,  (vehicle_action_msg,removePreconditionScheduleAction,vehicle_action_msg.removePreconditionScheduleAction), 100) \
 X(a, STATIC,   ONEOF,    MESSAGE,  (vehicle_action_msg,batchRemovePreconditionSchedulesAction,vehicle_action_msg.batchRemovePreconditionSchedulesAction), 107) \
 X(a, STATIC,   ONEOF,    MESSAGE,  (vehicle_action_msg,batchRemoveChargeSchedulesAction,vehicle_action_msg.batchRemoveChargeSchedulesAction), 108) \
-X(a, STATIC,   ONEOF,    MESSAGE,  (vehicle_action_msg,setLowPowerModeAction,vehicle_action_msg.setLowPowerModeAction), 130)
+X(a, STATIC,   ONEOF,    MESSAGE,  (vehicle_action_msg,setLowPowerModeAction,vehicle_action_msg.setLowPowerModeAction), 130) \
+X(a, STATIC,   ONEOF,    MESSAGE,  (vehicle_action_msg,setKeepAccessoryPowerModeAction,vehicle_action_msg.setKeepAccessoryPowerModeAction), 138)
 #define CarServer_VehicleAction_CALLBACK NULL
 #define CarServer_VehicleAction_DEFAULT NULL
 #define CarServer_VehicleAction_vehicle_action_msg_getVehicleData_MSGTYPE CarServer_GetVehicleData
@@ -1153,6 +1164,7 @@ X(a, STATIC,   ONEOF,    MESSAGE,  (vehicle_action_msg,setLowPowerModeAction,veh
 #define CarServer_VehicleAction_vehicle_action_msg_batchRemovePreconditionSchedulesAction_MSGTYPE CarServer_BatchRemovePreconditionSchedulesAction
 #define CarServer_VehicleAction_vehicle_action_msg_batchRemoveChargeSchedulesAction_MSGTYPE CarServer_BatchRemoveChargeSchedulesAction
 #define CarServer_VehicleAction_vehicle_action_msg_setLowPowerModeAction_MSGTYPE CarServer_SetLowPowerModeAction
+#define CarServer_VehicleAction_vehicle_action_msg_setKeepAccessoryPowerModeAction_MSGTYPE CarServer_SetKeepAccessoryPowerModeAction
 
 #define CarServer_GetVehicleData_FIELDLIST(X, a) \
 X(a, STATIC,   OPTIONAL, MESSAGE,  getChargeState,    2) \
@@ -1682,6 +1694,11 @@ X(a, STATIC,   SINGULAR, BOOL,     low_power_mode,    1)
 #define CarServer_SetLowPowerModeAction_CALLBACK NULL
 #define CarServer_SetLowPowerModeAction_DEFAULT NULL
 
+#define CarServer_SetKeepAccessoryPowerModeAction_FIELDLIST(X, a) \
+X(a, STATIC,   SINGULAR, BOOL,     keep_accessory_power_mode,   1)
+#define CarServer_SetKeepAccessoryPowerModeAction_CALLBACK NULL
+#define CarServer_SetKeepAccessoryPowerModeAction_DEFAULT NULL
+
 extern const pb_msgdesc_t CarServer_Action_msg;
 extern const pb_msgdesc_t CarServer_VehicleAction_msg;
 extern const pb_msgdesc_t CarServer_GetVehicleData_msg;
@@ -1758,6 +1775,7 @@ extern const pb_msgdesc_t CarServer_VehicleControlSetPinToDriveAction_msg;
 extern const pb_msgdesc_t CarServer_VehicleControlResetPinToDriveAction_msg;
 extern const pb_msgdesc_t CarServer_VehicleControlResetPinToDriveAdminAction_msg;
 extern const pb_msgdesc_t CarServer_SetLowPowerModeAction_msg;
+extern const pb_msgdesc_t CarServer_SetKeepAccessoryPowerModeAction_msg;
 
 /* Defines for backwards compatibility with code written before nanopb-0.4.0 */
 #define CarServer_Action_fields &CarServer_Action_msg
@@ -1836,6 +1854,7 @@ extern const pb_msgdesc_t CarServer_SetLowPowerModeAction_msg;
 #define CarServer_VehicleControlResetPinToDriveAction_fields &CarServer_VehicleControlResetPinToDriveAction_msg
 #define CarServer_VehicleControlResetPinToDriveAdminAction_fields &CarServer_VehicleControlResetPinToDriveAdminAction_msg
 #define CarServer_SetLowPowerModeAction_fields &CarServer_SetLowPowerModeAction_msg
+#define CarServer_SetKeepAccessoryPowerModeAction_fields &CarServer_SetKeepAccessoryPowerModeAction_msg
 
 /* Maximum encoded size of messages (where known) */
 /* CarServer_Action_size depends on runtime parameters */
@@ -1904,6 +1923,7 @@ extern const pb_msgdesc_t CarServer_SetLowPowerModeAction_msg;
 #define CarServer_SetCabinOverheatProtectionAction_size 4
 #define CarServer_SetChargingAmpsAction_size     11
 #define CarServer_SetCopTempAction_size          2
+#define CarServer_SetKeepAccessoryPowerModeAction_size 2
 #define CarServer_SetLowPowerModeAction_size     2
 #define CarServer_VehicleControlCancelSoftwareUpdateAction_size 0
 #define CarServer_VehicleControlFlashLightsAction_size 0

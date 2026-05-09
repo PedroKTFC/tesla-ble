@@ -326,7 +326,7 @@ namespace TeslaBLE
                                     size_t input_buffer_length,
                                     UniversalMessage_RoutableMessage *output)
   {
-    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.4.0 %s", TAG);
+    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.5.0-dev %s", TAG);
     return decodeProtoBuffer (input_buffer, input_buffer_length, UniversalMessage_RoutableMessage_fields, output, "parseUniversalMessage");
   }
 
@@ -863,6 +863,14 @@ namespace TeslaBLE
       case CarServer_VehicleAction_mediaPreviousTrack_tag:
         action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPreviousTrack             = CarServer_MediaPreviousTrack_init_default;
         action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPreviousTrack.dummy_field = 1;
+        break;
+      case CarServer_VehicleAction_setLowPowerModeAction_tag:
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.setLowPowerModeAction                = CarServer_SetLowPowerModeAction_init_default;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.setLowPowerModeAction.low_power_mode = (set_value != 0);
+        break;
+      case CarServer_VehicleAction_setKeepAccessoryPowerModeAction_tag:
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.setKeepAccessoryPowerModeAction                           = CarServer_SetKeepAccessoryPowerModeAction_init_default;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.setKeepAccessoryPowerModeAction.keep_accessory_power_mode = (set_value != 0);
         break;
       default:
         LOG_ERROR ("Invalid which_tag type %i, car server vehicle action message not built", which_tag);

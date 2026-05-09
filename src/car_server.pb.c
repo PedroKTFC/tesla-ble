@@ -234,6 +234,9 @@ PB_BIND(CarServer_VehicleControlResetPinToDriveAdminAction, CarServer_VehicleCon
 PB_BIND(CarServer_SetLowPowerModeAction, CarServer_SetLowPowerModeAction, AUTO)
 
 
+PB_BIND(CarServer_SetKeepAccessoryPowerModeAction, CarServer_SetKeepAccessoryPowerModeAction, AUTO)
+
+
 
 
 
