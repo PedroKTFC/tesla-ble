@@ -326,7 +326,7 @@ namespace TeslaBLE
                                     size_t input_buffer_length,
                                     UniversalMessage_RoutableMessage *output)
   {
-    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.5.0-dev %s", TAG);
+    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.7.0-dev %s", TAG);
     return decodeProtoBuffer (input_buffer, input_buffer_length, UniversalMessage_RoutableMessage_fields, output, "parseUniversalMessage");
   }
 
@@ -752,6 +752,10 @@ namespace TeslaBLE
       case CarServer_GetVehicleData_getTirePressureState_tag:
         action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getTirePressureState     = CarServer_GetTirePressureState_init_default;
         action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getTirePressureState = true;
+        break;
+      case CarServer_GetVehicleData_getChargeScheduleState_tag:
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getChargeScheduleState     = CarServer_GetChargeScheduleState_init_default;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getChargeScheduleState = true;
         break;
       default:
         LOG_ERROR ("Invalid which_get type, action message not built");
