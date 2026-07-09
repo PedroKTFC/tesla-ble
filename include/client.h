@@ -176,7 +176,8 @@ namespace TeslaBLE
         int32_t parameter,
         pb_byte_t *output_buffer,
         size_t *output_length,
-        int which_tag
+        int which_tag,
+        uint64_t long_param = 0
         );
 
     int buildChargingAmpsMessage(
