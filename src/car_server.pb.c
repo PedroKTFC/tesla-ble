@@ -54,7 +54,7 @@ PB_BIND(CarServer_GetParentalControlsState, CarServer_GetParentalControlsState, 
 PB_BIND(CarServer_EraseUserDataAction, CarServer_EraseUserDataAction, AUTO)
 
 
-PB_BIND(CarServer_Response, CarServer_Response, 2)
+PB_BIND(CarServer_Response, CarServer_Response, 4)
 
 
 PB_BIND(CarServer_ActionStatus, CarServer_ActionStatus, AUTO)

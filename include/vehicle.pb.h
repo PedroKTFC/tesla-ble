@@ -203,7 +203,8 @@ typedef struct _CarServer_ClosuresState_SentryModeState {
 } CarServer_ClosuresState_SentryModeState;
 
 typedef struct _CarServer_ChargeScheduleState {
-    pb_callback_t charge_schedules;
+    pb_size_t charge_schedules_count;
+    CarServer_ChargeSchedule charge_schedules[32];
     pb_size_t which_optional_charge_schedule_window;
     union {
         CarServer_ChargeSchedule charge_schedule_window;
@@ -1507,7 +1508,7 @@ extern "C" {
 #define CarServer_ClosuresState_SunRoofState_init_default {0, {CarServer_Void_init_default}}
 #define CarServer_ClosuresState_DisplayState_init_default {0, {CarServer_Void_init_default}}
 #define CarServer_ClosuresState_SentryModeState_init_default {0, {CarServer_Void_init_default}}
-#define CarServer_ChargeScheduleState_init_default {{{NULL}, NULL}, 0, {CarServer_ChargeSchedule_init_default}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
+#define CarServer_ChargeScheduleState_init_default {0, {CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default}, 0, {CarServer_ChargeSchedule_init_default}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
 #define CarServer_PreconditioningScheduleState_init_default {{{NULL}, NULL}, 0, {CarServer_PreconditionSchedule_init_default}, 0, {0}, 0, {0}}
 #define CarServer_SpeedLimitMode_init_default    {0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
 #define CarServer_ParentalControlsSettings_init_default {0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
@@ -1546,7 +1547,7 @@ extern "C" {
 #define CarServer_ClosuresState_SunRoofState_init_zero {0, {CarServer_Void_init_zero}}
 #define CarServer_ClosuresState_DisplayState_init_zero {0, {CarServer_Void_init_zero}}
 #define CarServer_ClosuresState_SentryModeState_init_zero {0, {CarServer_Void_init_zero}}
-#define CarServer_ChargeScheduleState_init_zero  {{{NULL}, NULL}, 0, {CarServer_ChargeSchedule_init_zero}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
+#define CarServer_ChargeScheduleState_init_zero  {0, {CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero}, 0, {CarServer_ChargeSchedule_init_zero}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
 #define CarServer_PreconditioningScheduleState_init_zero {{{NULL}, NULL}, 0, {CarServer_PreconditionSchedule_init_zero}, 0, {0}, 0, {0}}
 #define CarServer_SpeedLimitMode_init_zero       {0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
 #define CarServer_ParentalControlsSettings_init_zero {0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
@@ -2031,13 +2032,13 @@ X(a, STATIC,   ONEOF,    MESSAGE,  (type,Quiet,type.Quiet),   6)
 #define CarServer_ClosuresState_SentryModeState_type_Quiet_MSGTYPE CarServer_Void
 
 #define CarServer_ChargeScheduleState_FIELDLIST(X, a) \
-X(a, CALLBACK, REPEATED, MESSAGE,  charge_schedules,   1) \
+X(a, STATIC,   REPEATED, MESSAGE,  charge_schedules,   1) \
 X(a, STATIC,   ONEOF,    MESSAGE,  (optional_charge_schedule_window,charge_schedule_window,optional_charge_schedule_window.charge_schedule_window),   2) \
 X(a, STATIC,   ONEOF,    INT32,    (optional_charge_buffer,charge_buffer,optional_charge_buffer.charge_buffer),   3) \
 X(a, STATIC,   ONEOF,    UINT32,   (optional_max_num_charge_schedules,max_num_charge_schedules,optional_max_num_charge_schedules.max_num_charge_schedules),   4) \
 X(a, STATIC,   ONEOF,    BOOL,     (optional_next_schedule,next_schedule,optional_next_schedule.next_schedule),   5) \
 X(a, STATIC,   ONEOF,    BOOL,     (optional_show_schedule_complete_state,show_schedule_complete_state,optional_show_schedule_complete_state.show_schedule_complete_state),   6)
-#define CarServer_ChargeScheduleState_CALLBACK pb_default_field_callback
+#define CarServer_ChargeScheduleState_CALLBACK NULL
 #define CarServer_ChargeScheduleState_DEFAULT NULL
 #define CarServer_ChargeScheduleState_charge_schedules_MSGTYPE CarServer_ChargeSchedule
 #define CarServer_ChargeScheduleState_optional_charge_schedule_window_charge_schedule_window_MSGTYPE CarServer_ChargeSchedule
@@ -2604,12 +2605,9 @@ extern const pb_msgdesc_t CarServer_ShiftState_msg;
 #define CarServer_ShiftState_fields &CarServer_ShiftState_msg
 
 /* Maximum encoded size of messages (where known) */
-#if defined(CarServer_ChargeSchedule_size)
-#endif
 #if defined(CarServer_PreconditionSchedule_size)
 #endif
 /* CarServer_VehicleData_size depends on runtime parameters */
-/* CarServer_ChargeScheduleState_size depends on runtime parameters */
 /* CarServer_PreconditioningScheduleState_size depends on runtime parameters */
 /* CarServer_SoftwareUpdateState_size depends on runtime parameters */
 /* CarServer_DriveState_size depends on runtime parameters */
@@ -2618,7 +2616,7 @@ extern const pb_msgdesc_t CarServer_ShiftState_msg;
 /* CarServer_LocationState_size depends on runtime parameters */
 /* CarServer_MediaState_size depends on runtime parameters */
 /* CarServer_MediaDetailState_size depends on runtime parameters */
-#define CARSERVER_VEHICLE_PB_H_MAX_SIZE          CarServer_ClimateState_size
+#define CARSERVER_VEHICLE_PB_H_MAX_SIZE          CarServer_ChargeScheduleState_size
 #define CarServer_ChargeOnSolarStateChargingOnAnything_size 0
 #define CarServer_ChargeOnSolarStateChargingOnExcessSolar_size 0
 #define CarServer_ChargeOnSolarStateError_size   0
@@ -2628,6 +2626,7 @@ extern const pb_msgdesc_t CarServer_ShiftState_msg;
 #define CarServer_ChargeOnSolarStateUserStopped_size 0
 #define CarServer_ChargeOnSolarStateWaitingForServer_size 0
 #define CarServer_ChargeOnSolarState_size        4
+#define CarServer_ChargeScheduleState_size       4278
 #define CarServer_ChargeState_CableType_size     2
 #define CarServer_ChargeState_ChargerBrand_size  2
 #define CarServer_ChargeState_ChargerType_size   2

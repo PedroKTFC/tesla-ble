@@ -65,7 +65,7 @@ typedef struct _CarServer_OffPeakChargingTimes {
 
 typedef struct _CarServer_ChargeSchedule {
     uint64_t id; /* datetime in epoch time */
-    pb_callback_t name;
+    char name[64];
     int32_t days_of_week;
     bool start_enabled;
     int32_t start_time; /* 24h in minutes */
@@ -120,14 +120,14 @@ extern "C" {
 #define CarServer_ChargePortLatchState_init_default {0, {CarServer_Void_init_default}}
 #define CarServer_PreconditioningTimes_init_default {0, {CarServer_Void_init_default}}
 #define CarServer_OffPeakChargingTimes_init_default {0, {CarServer_Void_init_default}}
-#define CarServer_ChargeSchedule_init_default    {0, {{NULL}, NULL}, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+#define CarServer_ChargeSchedule_init_default    {0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0}
 #define CarServer_PreconditionSchedule_init_default {0, {{NULL}, NULL}, 0, 0, 0, 0, 0, 0}
 #define CarServer_Void_init_zero                 {0}
 #define CarServer_LatLong_init_zero              {0, 0}
 #define CarServer_ChargePortLatchState_init_zero {0, {CarServer_Void_init_zero}}
 #define CarServer_PreconditioningTimes_init_zero {0, {CarServer_Void_init_zero}}
 #define CarServer_OffPeakChargingTimes_init_zero {0, {CarServer_Void_init_zero}}
-#define CarServer_ChargeSchedule_init_zero       {0, {{NULL}, NULL}, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+#define CarServer_ChargeSchedule_init_zero       {0, "", 0, 0, 0, 0, 0, 0, 0, 0, 0}
 #define CarServer_PreconditionSchedule_init_zero {0, {{NULL}, NULL}, 0, 0, 0, 0, 0, 0}
 
 /* Field tags (for use in manual encoding/decoding) */
@@ -203,7 +203,7 @@ X(a, STATIC,   ONEOF,    MESSAGE,  (times,weekdays,times.weekdays),   2)
 
 #define CarServer_ChargeSchedule_FIELDLIST(X, a) \
 X(a, STATIC,   SINGULAR, UINT64,   id,                1) \
-X(a, CALLBACK, SINGULAR, STRING,   name,              2) \
+X(a, STATIC,   SINGULAR, STRING,   name,              2) \
 X(a, STATIC,   SINGULAR, INT32,    days_of_week,      3) \
 X(a, STATIC,   SINGULAR, BOOL,     start_enabled,     4) \
 X(a, STATIC,   SINGULAR, INT32,    start_time,        5) \
@@ -213,7 +213,7 @@ X(a, STATIC,   SINGULAR, BOOL,     one_time,          8) \
 X(a, STATIC,   SINGULAR, BOOL,     enabled,           9) \
 X(a, STATIC,   SINGULAR, FLOAT,    latitude,         10) \
 X(a, STATIC,   SINGULAR, FLOAT,    longitude,        11)
-#define CarServer_ChargeSchedule_CALLBACK pb_default_field_callback
+#define CarServer_ChargeSchedule_CALLBACK NULL
 #define CarServer_ChargeSchedule_DEFAULT NULL
 
 #define CarServer_PreconditionSchedule_FIELDLIST(X, a) \
@@ -246,10 +246,10 @@ extern const pb_msgdesc_t CarServer_PreconditionSchedule_msg;
 #define CarServer_PreconditionSchedule_fields &CarServer_PreconditionSchedule_msg
 
 /* Maximum encoded size of messages (where known) */
-/* CarServer_ChargeSchedule_size depends on runtime parameters */
 /* CarServer_PreconditionSchedule_size depends on runtime parameters */
-#define CARSERVER_COMMON_PB_H_MAX_SIZE           CarServer_LatLong_size
+#define CARSERVER_COMMON_PB_H_MAX_SIZE           CarServer_ChargeSchedule_size
 #define CarServer_ChargePortLatchState_size      2
+#define CarServer_ChargeSchedule_size            127
 #define CarServer_LatLong_size                   10
 #define CarServer_OffPeakChargingTimes_size      2
 #define CarServer_PreconditioningTimes_size      2

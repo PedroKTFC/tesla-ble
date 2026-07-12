@@ -326,7 +326,7 @@ namespace TeslaBLE
                                     size_t input_buffer_length,
                                     UniversalMessage_RoutableMessage *output)
   {
-    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.5.0 %s", TAG);
+    LOG_INFO ("[parseUniversalMessage] Entering at version 2026.7.0 %s", TAG);
     return decodeProtoBuffer (input_buffer, input_buffer_length, UniversalMessage_RoutableMessage_fields, output, "parseUniversalMessage");
   }
 
@@ -753,6 +753,10 @@ namespace TeslaBLE
         action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getTirePressureState     = CarServer_GetTirePressureState_init_default;
         action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getTirePressureState = true;
         break;
+      case CarServer_GetVehicleData_getChargeScheduleState_tag:
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getChargeScheduleState     = CarServer_GetChargeScheduleState_init_default;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getChargeScheduleState = true;
+        break;
       default:
         LOG_ERROR ("Invalid which_get type, action message not built");
         return TeslaBLE_Status_E_ERROR_INTERNAL;
@@ -770,7 +774,8 @@ namespace TeslaBLE
   int Client::buildCarServerVehicleActionMessage (int32_t set_value,
                                                   pb_byte_t *output_buffer,
                                                   size_t *output_length,
-                                                  int which_tag
+                                                  int which_tag,
+                                                  uint64_t long_param
                                                  )
   {
     // Build generic part action.action_msg.vehicleAction
@@ -872,8 +877,12 @@ namespace TeslaBLE
         action_message_.action_msg.vehicleAction.vehicle_action_msg.setKeepAccessoryPowerModeAction                           = CarServer_SetKeepAccessoryPowerModeAction_init_default;
         action_message_.action_msg.vehicleAction.vehicle_action_msg.setKeepAccessoryPowerModeAction.keep_accessory_power_mode = (set_value != 0);
         break;
+      case CarServer_VehicleAction_removeChargeScheduleAction_tag:
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.removeChargeScheduleAction    = CarServer_RemoveChargeScheduleAction_init_default ;
+        action_message_.action_msg.vehicleAction.vehicle_action_msg.removeChargeScheduleAction.id = long_param;
+        break;
       default:
-        LOG_ERROR ("Invalid which_tag type %i, car server vehicle action message not built", which_tag);
+        LOG_ERROR ("Tag type %i, car server vehicle action message not built", which_tag);
         return TeslaBLE_Status_E_ERROR_INTERNAL;
     }
     // Add it to the message

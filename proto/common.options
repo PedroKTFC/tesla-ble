@@ -1,0 +1,4 @@
+# "common.proto"
+
+
+CarServer.ChargeSchedule.name max_size:64
