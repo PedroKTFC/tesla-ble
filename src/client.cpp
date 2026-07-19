@@ -902,6 +902,7 @@ namespace TeslaBLE
           default:
             LOG_ERROR ("Tag type %i, unexpected overheat set_value received %i", which_tag, set_value);
             return TeslaBLE_Status_E_ERROR_INTERNAL;
+        }
       default:
         LOG_ERROR ("Tag type %i, car server vehicle action message not built", which_tag);
         return TeslaBLE_Status_E_ERROR_INTERNAL;
