@@ -725,37 +725,39 @@ namespace TeslaBLE
     action_message_.which_action_msg                                           = CarServer_Action_vehicleAction_tag;
     action_message_.action_msg.vehicleAction                                   = CarServer_VehicleAction_init_default;
     action_message_.action_msg.vehicleAction.which_vehicle_action_msg          = CarServer_VehicleAction_getVehicleData_tag;
-    action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData = CarServer_GetVehicleData_init_default;
+    
+    auto& vehicle_action_msg_          = action_message_.action_msg.vehicleAction.vehicle_action_msg; // For legibility
+    vehicle_action_msg_.getVehicleData = CarServer_GetVehicleData_init_default;
     // Now the get specific part
     switch (which_get)
     {
       case CarServer_GetVehicleData_getChargeState_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getChargeState     = CarServer_GetChargeState_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getChargeState = true;
+        vehicle_action_msg_.getVehicleData.getChargeState     = CarServer_GetChargeState_init_default;
+        vehicle_action_msg_.getVehicleData.has_getChargeState = true;
         break;
       case CarServer_GetVehicleData_getClimateState_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getClimateState     = CarServer_GetClimateState_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getClimateState = true;
+        vehicle_action_msg_.getVehicleData.getClimateState     = CarServer_GetClimateState_init_default;
+        vehicle_action_msg_.getVehicleData.has_getClimateState = true;
         break;
       case CarServer_GetVehicleData_getDriveState_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getDriveState     = CarServer_GetDriveState_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getDriveState = true;
+        vehicle_action_msg_.getVehicleData.getDriveState     = CarServer_GetDriveState_init_default;
+        vehicle_action_msg_.getVehicleData.has_getDriveState = true;
         break;
       case CarServer_GetVehicleData_getLocationState_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getLocationState     = CarServer_GetLocationState_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getLocationState = true;
+        vehicle_action_msg_.getVehicleData.getLocationState     = CarServer_GetLocationState_init_default;
+        vehicle_action_msg_.getVehicleData.has_getLocationState = true;
         break;
       case CarServer_GetVehicleData_getClosuresState_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getClosuresState     = CarServer_GetClosuresState_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getClosuresState = true;
+        vehicle_action_msg_.getVehicleData.getClosuresState     = CarServer_GetClosuresState_init_default;
+        vehicle_action_msg_.getVehicleData.has_getClosuresState = true;
         break;
       case CarServer_GetVehicleData_getTirePressureState_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getTirePressureState     = CarServer_GetTirePressureState_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getTirePressureState = true;
+        vehicle_action_msg_.getVehicleData.getTirePressureState     = CarServer_GetTirePressureState_init_default;
+        vehicle_action_msg_.getVehicleData.has_getTirePressureState = true;
         break;
       case CarServer_GetVehicleData_getChargeScheduleState_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.getChargeScheduleState     = CarServer_GetChargeScheduleState_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.getVehicleData.has_getChargeScheduleState = true;
+        vehicle_action_msg_.getVehicleData.getChargeScheduleState     = CarServer_GetChargeScheduleState_init_default;
+        vehicle_action_msg_.getVehicleData.has_getChargeScheduleState = true;
         break;
       default:
         LOG_ERROR ("Invalid which_get type, action message not built");
@@ -784,103 +786,122 @@ namespace TeslaBLE
     action_message_.action_msg.vehicleAction                          = CarServer_VehicleAction_init_default;
     action_message_.action_msg.vehicleAction.which_vehicle_action_msg = which_tag;
     // Now the  specific part.
+    auto& vehicle_action_msg_ = action_message_.action_msg.vehicleAction.vehicle_action_msg; // For legibility
     switch (which_tag)
     {
       case CarServer_VehicleAction_setChargingAmpsAction_tag: 
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.setChargingAmpsAction               = CarServer_SetChargingAmpsAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.setChargingAmpsAction.charging_amps = set_value;
+        vehicle_action_msg_.setChargingAmpsAction               = CarServer_SetChargingAmpsAction_init_default;
+        vehicle_action_msg_.setChargingAmpsAction.charging_amps = set_value;
         break;
       case CarServer_VehicleAction_chargingSetLimitAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.chargingSetLimitAction         = CarServer_ChargingSetLimitAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.chargingSetLimitAction.percent = set_value;
+        vehicle_action_msg_.chargingSetLimitAction         = CarServer_ChargingSetLimitAction_init_default;
+        vehicle_action_msg_.chargingSetLimitAction.percent = set_value;
         break;
       case CarServer_VehicleAction_chargingStartStopAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.chargingStartStopAction = CarServer_ChargingStartStopAction_init_default;
+        vehicle_action_msg_.chargingStartStopAction = CarServer_ChargingStartStopAction_init_default;
         if (set_value == 1)
         {
-          action_message_.action_msg.vehicleAction.vehicle_action_msg.chargingStartStopAction.which_charging_action = CarServer_ChargingStartStopAction_start_tag;
-          action_message_.action_msg.vehicleAction.vehicle_action_msg.chargingStartStopAction.charging_action.start = CarServer_Void_init_default;
+          vehicle_action_msg_.chargingStartStopAction.which_charging_action = CarServer_ChargingStartStopAction_start_tag;
+          vehicle_action_msg_.chargingStartStopAction.charging_action.start = CarServer_Void_init_default;
         }
         else
         {
-          action_message_.action_msg.vehicleAction.vehicle_action_msg.chargingStartStopAction.which_charging_action = CarServer_ChargingStartStopAction_stop_tag;
-          action_message_.action_msg.vehicleAction.vehicle_action_msg.chargingStartStopAction.charging_action.stop  = CarServer_Void_init_default;
+          vehicle_action_msg_.chargingStartStopAction.which_charging_action = CarServer_ChargingStartStopAction_stop_tag;
+          vehicle_action_msg_.chargingStartStopAction.charging_action.stop  = CarServer_Void_init_default;
         }
         break;
       case CarServer_VehicleAction_vehicleControlSetSentryModeAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlSetSentryModeAction    = CarServer_VehicleControlSetSentryModeAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlSetSentryModeAction.on = (set_value != 0);
+        vehicle_action_msg_.vehicleControlSetSentryModeAction    = CarServer_VehicleControlSetSentryModeAction_init_default;
+        vehicle_action_msg_.vehicleControlSetSentryModeAction.on = (set_value != 0);
         break;
       case CarServer_VehicleAction_hvacAutoAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacAutoAction          = CarServer_HvacAutoAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacAutoAction.power_on = (set_value != 0);
+        vehicle_action_msg_.hvacAutoAction          = CarServer_HvacAutoAction_init_default;
+        vehicle_action_msg_.hvacAutoAction.power_on = (set_value != 0);
         break;
       case CarServer_VehicleAction_hvacSteeringWheelHeaterAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacSteeringWheelHeaterAction          = CarServer_HvacSteeringWheelHeaterAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacSteeringWheelHeaterAction.power_on = (set_value != 0);
+        vehicle_action_msg_.hvacSteeringWheelHeaterAction          = CarServer_HvacSteeringWheelHeaterAction_init_default;
+        vehicle_action_msg_.hvacSteeringWheelHeaterAction.power_on = (set_value != 0);
         break;
       case CarServer_VehicleAction_chargePortDoorOpen_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.chargePortDoorOpen             = CarServer_ChargePortDoorOpen_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.chargePortDoorOpen.dummy_field = 1;
+        vehicle_action_msg_.chargePortDoorOpen             = CarServer_ChargePortDoorOpen_init_default;
+        vehicle_action_msg_.chargePortDoorOpen.dummy_field = 1;
         break;
       case CarServer_VehicleAction_chargePortDoorClose_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.chargePortDoorClose             = CarServer_ChargePortDoorClose_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.chargePortDoorClose.dummy_field = 1;
+        vehicle_action_msg_.chargePortDoorClose             = CarServer_ChargePortDoorClose_init_default;
+        vehicle_action_msg_.chargePortDoorClose.dummy_field = 1;
         break;
       case CarServer_VehicleAction_vehicleControlFlashLightsAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlFlashLightsAction             = CarServer_VehicleControlFlashLightsAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlFlashLightsAction.dummy_field = 1;
+        vehicle_action_msg_.vehicleControlFlashLightsAction             = CarServer_VehicleControlFlashLightsAction_init_default;
+        vehicle_action_msg_.vehicleControlFlashLightsAction.dummy_field = 1;
         break;
       case CarServer_VehicleAction_vehicleControlHonkHornAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlHonkHornAction             = CarServer_VehicleControlHonkHornAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlHonkHornAction.dummy_field = 1;
+        vehicle_action_msg_.vehicleControlHonkHornAction             = CarServer_VehicleControlHonkHornAction_init_default;
+        vehicle_action_msg_.vehicleControlHonkHornAction.dummy_field = 1;
         break;
       case CarServer_VehicleAction_vehicleControlWindowAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlWindowAction = CarServer_VehicleControlWindowAction_init_default;
+        vehicle_action_msg_.vehicleControlWindowAction = CarServer_VehicleControlWindowAction_init_default;
         if (set_value == 1)
         {
-          action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlWindowAction.which_action = CarServer_VehicleControlWindowAction_vent_tag;
-          action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlWindowAction.action.vent  = CarServer_Void_init_default;
+          vehicle_action_msg_.vehicleControlWindowAction.which_action = CarServer_VehicleControlWindowAction_vent_tag;
+          vehicle_action_msg_.vehicleControlWindowAction.action.vent  = CarServer_Void_init_default;
         }
         else
         {
-          action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlWindowAction.which_action = CarServer_VehicleControlWindowAction_close_tag;
-          action_message_.action_msg.vehicleAction.vehicle_action_msg.vehicleControlWindowAction.action.close = CarServer_Void_init_default;
+          vehicle_action_msg_.vehicleControlWindowAction.which_action = CarServer_VehicleControlWindowAction_close_tag;
+          vehicle_action_msg_.vehicleControlWindowAction.action.close = CarServer_Void_init_default;
         }
         break;
       case CarServer_VehicleAction_hvacSetPreconditioningMaxAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacSetPreconditioningMaxAction    = CarServer_HvacSetPreconditioningMaxAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacSetPreconditioningMaxAction.on = (set_value != 0);
+        vehicle_action_msg_.hvacSetPreconditioningMaxAction    = CarServer_HvacSetPreconditioningMaxAction_init_default;
+        vehicle_action_msg_.hvacSetPreconditioningMaxAction.on = (set_value != 0);
         break;
       case CarServer_VehicleAction_hvacTemperatureAdjustmentAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacTemperatureAdjustmentAction                       = CarServer_HvacTemperatureAdjustmentAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacTemperatureAdjustmentAction.driver_temp_celsius   = set_value;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.hvacTemperatureAdjustmentAction.passenger_temp_celsius = set_value;
+        vehicle_action_msg_.hvacTemperatureAdjustmentAction                       = CarServer_HvacTemperatureAdjustmentAction_init_default;
+        vehicle_action_msg_.hvacTemperatureAdjustmentAction.driver_temp_celsius   = set_value;
+        vehicle_action_msg_.hvacTemperatureAdjustmentAction.passenger_temp_celsius = set_value;
         break;
       case CarServer_VehicleAction_mediaPlayAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPlayAction             = CarServer_MediaPlayAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPlayAction.dummy_field = 1;
+        vehicle_action_msg_.mediaPlayAction             = CarServer_MediaPlayAction_init_default;
+        vehicle_action_msg_.mediaPlayAction.dummy_field = 1;
         break;
       case CarServer_VehicleAction_mediaNextTrack_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaNextTrack             = CarServer_MediaNextTrack_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaNextTrack.dummy_field = 1;
+        vehicle_action_msg_.mediaNextTrack             = CarServer_MediaNextTrack_init_default;
+        vehicle_action_msg_.mediaNextTrack.dummy_field = 1;
         break;
       case CarServer_VehicleAction_mediaPreviousTrack_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPreviousTrack             = CarServer_MediaPreviousTrack_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.mediaPreviousTrack.dummy_field = 1;
+        vehicle_action_msg_.mediaPreviousTrack             = CarServer_MediaPreviousTrack_init_default;
+        vehicle_action_msg_.mediaPreviousTrack.dummy_field = 1;
         break;
       case CarServer_VehicleAction_setLowPowerModeAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.setLowPowerModeAction                = CarServer_SetLowPowerModeAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.setLowPowerModeAction.low_power_mode = (set_value != 0);
+        vehicle_action_msg_.setLowPowerModeAction                = CarServer_SetLowPowerModeAction_init_default;
+        vehicle_action_msg_.setLowPowerModeAction.low_power_mode = (set_value != 0);
         break;
       case CarServer_VehicleAction_setKeepAccessoryPowerModeAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.setKeepAccessoryPowerModeAction                           = CarServer_SetKeepAccessoryPowerModeAction_init_default;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.setKeepAccessoryPowerModeAction.keep_accessory_power_mode = (set_value != 0);
+        vehicle_action_msg_.setKeepAccessoryPowerModeAction                           = CarServer_SetKeepAccessoryPowerModeAction_init_default;
+        vehicle_action_msg_.setKeepAccessoryPowerModeAction.keep_accessory_power_mode = (set_value != 0);
         break;
       case CarServer_VehicleAction_removeChargeScheduleAction_tag:
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.removeChargeScheduleAction    = CarServer_RemoveChargeScheduleAction_init_default ;
-        action_message_.action_msg.vehicleAction.vehicle_action_msg.removeChargeScheduleAction.id = long_param;
+        vehicle_action_msg_.removeChargeScheduleAction    = CarServer_RemoveChargeScheduleAction_init_default;
+        vehicle_action_msg_.removeChargeScheduleAction.id = long_param;
         break;
+      case CarServer_VehicleAction_SetCabinOverheatProtectionAction_tag:
+        vehicle_action_msg_.setCabinOverheatProtectionAction    = CarServer_SetCabinOverheatProtectionAction_init_default;
+        switch (set_value)
+        {
+          // Note the Tesla tags do not include an "off" tag hence "hard-coded" 0 here
+          case 0:
+            break; // No need to do anything as init_default sets it to off
+          case CarServer_SetCabinOverheatProtectionAction_on_tag:
+            vehicle_action_msg_.setCabinOverheatProtectionAction.on       = true;
+            vehicle_action_msg_.setCabinOverheatProtectionAction.fan_only = false;
+            break;
+          case CarServer_SetCabinOverheatProtectionAction_fan_only_tag:
+            vehicle_action_msg_.setCabinOverheatProtectionAction.on       = false;
+            vehicle_action_msg_.setCabinOverheatProtectionAction.fan_only = true;
+            break;
+          default:
+            LOG_ERROR ("Tag type %i, unexpected overheat set_value received %i", which_tag, set_value);
+            return TeslaBLE_Status_E_ERROR_INTERNAL;
       default:
         LOG_ERROR ("Tag type %i, car server vehicle action message not built", which_tag);
         return TeslaBLE_Status_E_ERROR_INTERNAL;
