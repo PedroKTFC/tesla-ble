@@ -884,7 +884,7 @@ namespace TeslaBLE
         vehicle_action_msg_.removeChargeScheduleAction    = CarServer_RemoveChargeScheduleAction_init_default;
         vehicle_action_msg_.removeChargeScheduleAction.id = long_param;
         break;
-      case CarServer_VehicleAction_SetCabinOverheatProtectionAction_tag:
+      case CarServer_VehicleAction_setCabinOverheatProtectionAction_tag :
         vehicle_action_msg_.setCabinOverheatProtectionAction    = CarServer_SetCabinOverheatProtectionAction_init_default;
         switch (set_value)
         {
