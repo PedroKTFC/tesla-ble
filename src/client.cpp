@@ -896,7 +896,7 @@ namespace TeslaBLE
             vehicle_action_msg_.setCabinOverheatProtectionAction.fan_only = false;
             break;
           case CarServer_SetCabinOverheatProtectionAction_fan_only_tag:
-            vehicle_action_msg_.setCabinOverheatProtectionAction.on       = false;
+            vehicle_action_msg_.setCabinOverheatProtectionAction.on       = true;
             vehicle_action_msg_.setCabinOverheatProtectionAction.fan_only = true;
             break;
           default:
