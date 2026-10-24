@@ -24,7 +24,7 @@ PB_BIND(CarServer_ClosuresState_SentryModeState, CarServer_ClosuresState_SentryM
 PB_BIND(CarServer_ChargeScheduleState, CarServer_ChargeScheduleState, 2)
 
 
-PB_BIND(CarServer_PreconditioningScheduleState, CarServer_PreconditioningScheduleState, AUTO)
+PB_BIND(CarServer_PreconditioningScheduleState, CarServer_PreconditioningScheduleState, 2)
 
 
 PB_BIND(CarServer_SpeedLimitMode, CarServer_SpeedLimitMode, 2)

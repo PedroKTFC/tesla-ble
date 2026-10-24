@@ -228,7 +228,8 @@ typedef struct _CarServer_ChargeScheduleState {
 } CarServer_ChargeScheduleState;
 
 typedef struct _CarServer_PreconditioningScheduleState {
-    pb_callback_t precondition_schedules;
+    pb_size_t precondition_schedules_count;
+    CarServer_PreconditionSchedule precondition_schedules[32];
     pb_size_t which_optional_preconditioning_schedule_window;
     union {
         CarServer_PreconditionSchedule preconditioning_schedule_window;
@@ -1509,7 +1510,7 @@ extern "C" {
 #define CarServer_ClosuresState_DisplayState_init_default {0, {CarServer_Void_init_default}}
 #define CarServer_ClosuresState_SentryModeState_init_default {0, {CarServer_Void_init_default}}
 #define CarServer_ChargeScheduleState_init_default {0, {CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default, CarServer_ChargeSchedule_init_default}, 0, {CarServer_ChargeSchedule_init_default}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
-#define CarServer_PreconditioningScheduleState_init_default {{{NULL}, NULL}, 0, {CarServer_PreconditionSchedule_init_default}, 0, {0}, 0, {0}}
+#define CarServer_PreconditioningScheduleState_init_default {0, {CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default, CarServer_PreconditionSchedule_init_default}, 0, {CarServer_PreconditionSchedule_init_default}, 0, {0}, 0, {0}}
 #define CarServer_SpeedLimitMode_init_default    {0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
 #define CarServer_ParentalControlsSettings_init_default {0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
 #define CarServer_ParentalControlsState_init_default {0, {0}, 0, {0}, false, CarServer_ParentalControlsSettings_init_default}
@@ -1548,7 +1549,7 @@ extern "C" {
 #define CarServer_ClosuresState_DisplayState_init_zero {0, {CarServer_Void_init_zero}}
 #define CarServer_ClosuresState_SentryModeState_init_zero {0, {CarServer_Void_init_zero}}
 #define CarServer_ChargeScheduleState_init_zero  {0, {CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero, CarServer_ChargeSchedule_init_zero}, 0, {CarServer_ChargeSchedule_init_zero}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
-#define CarServer_PreconditioningScheduleState_init_zero {{{NULL}, NULL}, 0, {CarServer_PreconditionSchedule_init_zero}, 0, {0}, 0, {0}}
+#define CarServer_PreconditioningScheduleState_init_zero {0, {CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero, CarServer_PreconditionSchedule_init_zero}, 0, {CarServer_PreconditionSchedule_init_zero}, 0, {0}, 0, {0}}
 #define CarServer_SpeedLimitMode_init_zero       {0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
 #define CarServer_ParentalControlsSettings_init_zero {0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}, 0, {0}}
 #define CarServer_ParentalControlsState_init_zero {0, {0}, 0, {0}, false, CarServer_ParentalControlsSettings_init_zero}
@@ -2044,11 +2045,11 @@ X(a, STATIC,   ONEOF,    BOOL,     (optional_show_schedule_complete_state,show_s
 #define CarServer_ChargeScheduleState_optional_charge_schedule_window_charge_schedule_window_MSGTYPE CarServer_ChargeSchedule
 
 #define CarServer_PreconditioningScheduleState_FIELDLIST(X, a) \
-X(a, CALLBACK, REPEATED, MESSAGE,  precondition_schedules,   1) \
+X(a, STATIC,   REPEATED, MESSAGE,  precondition_schedules,   1) \
 X(a, STATIC,   ONEOF,    MESSAGE,  (optional_preconditioning_schedule_window,preconditioning_schedule_window,optional_preconditioning_schedule_window.preconditioning_schedule_window),   2) \
 X(a, STATIC,   ONEOF,    UINT32,   (optional_max_num_precondition_schedules,max_num_precondition_schedules,optional_max_num_precondition_schedules.max_num_precondition_schedules),   3) \
 X(a, STATIC,   ONEOF,    BOOL,     (optional_next_schedule,next_schedule,optional_next_schedule.next_schedule),   4)
-#define CarServer_PreconditioningScheduleState_CALLBACK pb_default_field_callback
+#define CarServer_PreconditioningScheduleState_CALLBACK NULL
 #define CarServer_PreconditioningScheduleState_DEFAULT NULL
 #define CarServer_PreconditioningScheduleState_precondition_schedules_MSGTYPE CarServer_PreconditionSchedule
 #define CarServer_PreconditioningScheduleState_optional_preconditioning_schedule_window_preconditioning_schedule_window_MSGTYPE CarServer_PreconditionSchedule
@@ -2605,10 +2606,7 @@ extern const pb_msgdesc_t CarServer_ShiftState_msg;
 #define CarServer_ShiftState_fields &CarServer_ShiftState_msg
 
 /* Maximum encoded size of messages (where known) */
-#if defined(CarServer_PreconditionSchedule_size)
-#endif
 /* CarServer_VehicleData_size depends on runtime parameters */
-/* CarServer_PreconditioningScheduleState_size depends on runtime parameters */
 /* CarServer_SoftwareUpdateState_size depends on runtime parameters */
 /* CarServer_DriveState_size depends on runtime parameters */
 /* CarServer_ChargeState_size depends on runtime parameters */
@@ -2641,6 +2639,7 @@ extern const pb_msgdesc_t CarServer_ShiftState_msg;
 #define CarServer_LocationState_GPSCoordinateType_size 2
 #define CarServer_ParentalControlsSettings_size  45
 #define CarServer_ParentalControlsState_size     51
+#define CarServer_PreconditioningScheduleState_size 3770
 #define CarServer_ShiftState_size                2
 #define CarServer_SoftwareUpdateState_SoftwareUpdateStatus_size 2
 #define CarServer_SpeedLimitMode_size            24
